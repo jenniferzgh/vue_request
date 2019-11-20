@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>  
+    
+</body>
+<script type="text/javascript">
+
+//默认为get方法，.text返回字符串
+  fetch('http://localhost:3004/userData').then(function(data){
+      return data.text();
+  }).then(function(data){
+      console.log(data)
+  })
+
+//返回数据为字符串，转为js对象格式
+// fetch('http://localhost:3004/userData/201610110008').then(function(data){
+//         return data.json();
+//     }).then(function(data){
+//         console.log(data)
+//     })
+
+//get请求传递参数
+//   fetch('http://localhost:3004/userData/201610110008',{
+//       method:'get'
+//   }).then(function(data){
+//       return data.text();
+//   }).then(function(data){
+//       console.log(data)
+//   })
+
+//delete请求传递参数
+    // fetch('http://localhost:3004/userData/201610110080',{
+    //   method:'delete'
+    // }).then(function(data){
+    //     return data.text();
+    // }).then(function(data){
+    //     console.log(data)
+    // })
+
+
+  //post请求传递参数
+  // fetch('http://localhost:3004/userData',{
+  //     method:'post',
+  //     body:JSON.stringify({
+  //       Name:"yang",
+  //       passwd:123
+  //     }),
+  //     headers:{
+  //       'Content-Type':'application/json'
+  //     }
+  //   }).then(function(data){
+  //       return data.text();
+  //   }).then(function(data){
+  //       console.log(data)
+  //   })
+//或
+    // fetch('http://localhost:3004/userData',{
+    //   method:'post',
+    //   body:'Name=杨尚绵&passwd=123',
+    //   headers:{
+    //     'Content-Type':'application/x-www-form-urlencoded'
+    //   }
+    // }).then(function(data){
+    //     return data.text();
+    // }).then(function(data){
+    //     console.log(data)
+    // })
+
+    //put请求传递参数
+  // fetch('http://localhost:3004/userData/201610110009',{
+  //     method:'put',
+  //     body:JSON.stringify({
+  //       Name:"jennifer",
+  //       passwd:"hua123123"
+  //     }),
+  //     headers:{
+  //       'Content-Type':'application/json'
+  //     }
+  //   }).then(function(data){
+  //       return data.text();
+  //   }).then(function(data){
+  //       console.log(data)
+  //   })
+
+    
+</script>
+</html>

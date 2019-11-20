@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="../axios/axios-master/dist/axios.js"></script>
+<script type="text/javascript">
+//async/await风格写axios
+axios.defaults.baseURL='http://localhost:3004/';
+async function queryData(){
+    var ret = await axios.get('userData/201610110009');
+    return ret.data
+}
+queryData().then(function(data){
+    console.log(data)
+})
+
+//async/await风格写promise
+// async function queryData(){
+//     var ret = await new Promise(function(resolve,reject){
+//         setTimeout(function(){
+//             resolve('nihao')
+//         },1000)
+//     })
+//     return ret
+// }
+// queryData().then(function(data){
+//     console.log(data)
+// })
+
+//async/await风格写fetch
+// async function queryData(){
+//     var ret = await fetch('http://localhost:3004/userData').then(function(data){
+//       return data.text();
+//   });
+//     return ret
+// }
+// queryData().then(function(data){
+//     console.log(data)
+// })
+
+
+//async/await风格写多个异步请求
+// axios.defaults.baseURL='http://localhost:3004/';
+// async function queryData(){
+//     var ret = await axios.get('userData/201610110009');
+//     var info = await axios.get('userData/201610110010?ret='+ret.data);
+//     return info.data
+// }
+// queryData().then(function(data){
+//     console.log(data)
+// })
+
+
+// axios.defaults.baseURL='http://localhost:3004/';
+// async function queryData(){
+//     var ret = await axios({
+//         method:'post',
+//         url:'http://localhost:3004/userData',
+//         data:{
+//             Name:'xiewei',
+//             studentId:20161011111111
+//         }
+//     });
+//     var info = await axios.get('userData/201610110010?ret='+ret.data);
+//     return info.data
+// }
+// queryData().then(function(data){
+//     console.log(data)
+// })
+</script>
+</html>

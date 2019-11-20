@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>   
+</body>
+<script>
+//打印promise
+console.dir(Promise)
+
+function queryData(url){
+    return new Promise(function(resolve,reject){
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange=function(){
+          if(xhr.readyState!=4)return;
+          if(xhr.readyState == 4 && xhr.status == 200){
+              resolve(xhr.responseText)
+          }else{
+              reject('服务器错误')
+          }
+      }
+      xhr.open('get',url);
+      xhr.send(null);
+    });
+    
+}
+//发送一次请求 .then定义resolve和reject
+// queryData('http://localhost:3004/userData')
+// .then(
+//     function(data){
+//         console.log(data)
+//     },
+//     function(info){
+//         console.log(info)
+//     }
+// )
+
+
+
+//发送多次请求
+// queryData('http://localhost:3004/userData')
+// .then(
+//     function(data){
+//         console.log(data)
+//         return queryData('http://localhost:3004/articalCard')
+//     },
+//     function(info){
+//         console.log(info)
+//     }
+    
+// )
+// .then(
+//     function(data){
+//         console.log(data)
+//         return queryData('http://localhost:3004/upImage')
+//     },
+//     function(info){
+//         console.log(info)
+//     }
+// )
+// .then(
+//     function(data){
+//         console.log(data)
+//     },
+//     function(info){
+//         console.log(info)
+//     }
+// )
+
+
+//then参数中函数的返回值可能是promise对象实例，也可能是普通值
+// queryData('http://localhost:3004/userData')
+// .then(function(data){
+//         return queryData('http://localhost:3004/articalCard')
+//     }
+// )
+// .then(function(data){
+//     return new Promise(function(resolve,reject){
+//         setTimeout(function(){
+//             resolve(123);
+//         },1000)
+//     })
+// })
+// .then(
+//     function(data){
+//         console.log(data);
+//         return 'hello'
+//     }
+// )
+// .then(function(data){
+//     console.log(data)
+// })
+
+
+//promise的API实例方法 .then定义resolve,.catch捕获异常信息,定义reject，.finally无论如何都执行
+// queryData('http://localhost:3004/userData')
+// .then(
+//     function(data){
+//         console.log(data)
+//     },
+// )
+// .catch(function(data){
+//     console.log(data)
+// })
+// .finally(function(){
+//     console.log('finish')
+// })
+// //相当于
+// queryData('http://localhost:3004/userData')
+// .then(
+//     function(data){
+//         console.log(data)
+//     },
+//     function(info){
+//         console.log(info)
+//     }
+// )
+// .finally(function(){
+//     console.log('finish')
+// })
+
+
+//promise的API对象方法，all并发处理多个异步任务，所有任务都执行完成时才得到结果，race并发处理多个异步任务，某个任务完成就能得到结果
+var p1 = queryData('http://localhost:3004/userData');
+var p2 = queryData('http://localhost:3004/articalCard');
+var p3 = queryData('http://localhost:3004/upImage');
+// Promise.all([p1,p2,p3]).then(function(res){
+//     console.log(res)
+// })
+Promise.race([p1,p2,p3]).then(function(res){
+    console.log(res)
+})
+
+</script>
+</html>

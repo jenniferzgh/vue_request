@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="axios-master/dist/axios.js"></script>
+<script type="text/javascript">
+//get请求传参(url:Resful/传统，params)
+//   axios.get('http://localhost:3004/userData/201610110008').then(function(res){
+//       console.log(res.data)
+//   })
+//   axios.get('http://localhost:3004/userData?id=201610110008').then(function(res){
+//       console.log(res.data)
+//   })
+//   axios.get('http://localhost:3004/userData',{
+//       params:{
+//           id:201610110008
+//       }
+//   }).then(function(res){
+//       console.log(res.data)
+//   })
+
+  //delete请求（jsonServer只接收resful风格url）
+//   axios.delete('http://localhost:3004/userData/201610110008').then(function(res){
+//       console.log(res)
+//   })
+//   axios.delete('http://localhost:3004/userData?id=201610110008').then(function(res){
+//     console.log(res.data)
+//   })
+//   axios.delete('http://localhost:3004/userData',{
+//       params:{
+//           id:201610110008
+//       }
+//   }).then(function(res){
+//       console.log(res.data)
+//   })
+
+//post请求（所有请求都可以这样写）
+// axios({
+//     method:'post',
+//     url:'http://localhost:3004/userData',
+//     data:{
+//         Name:'xiewei',
+//         studentId:201610110010
+//     }
+// }).then(res => {
+//     console.log(res);
+//     console.log(res.data)
+// })
+
+// //配置请求的基准url地址
+// axios.defaults.baseURL='http://localhost:3004/';
+// //配置请求头信息(后台需要允许传递mytoken)
+// axios.defaults.headers['mytoken']='hello';
+// //设置超时时间
+// axios.defaults.timeout=3000;
+// //get方式一
+// // axios.get('userData/201610110009').then(function(res){
+// //   console.log(res.data)
+// // })
+// //get方式二
+// axios({
+//     method:'get',
+//     url:'userData/201610110009'
+// }).then(res => {
+//     console.log(res);
+//     console.log(res.data)
+// })
+
+//请求拦截器（在请求发出之前设置一些信息，比如设置请求头内容）
+// axios.interceptors.request.use(function(config){
+//     console.log(config.url)
+//     config.headers.mytoken = 'nihao';
+//     return config;
+// },function(err){
+//     console.log(err)
+// })
+// axios.get('http://localhost:3004/userData').then(res=>{
+//     console.log(res)
+// })
+
+//响应拦截器（在获取数据之前做一些加工，比如只返回res.data而不是res的全部内容）
+axios.interceptors.response.use(function(res){   
+    return res.data;
+},function(err){
+    console.log(err)
+})
+
+axios.get('http://localhost:3004/userData/201610110009').then(res=>{
+    //这里的res是响应拦截器return出来的结果
+    console.log(res)
+})
+</script>
+</html>
