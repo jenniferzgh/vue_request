@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单</title>
+</head>
+<body>
+    <div id="app">
+        <form action="">
+            <!-- 单行文本 -->
+            <div class="name">
+                <span>姓名</span><input type="text" v-model="name">
+            </div>
+            <!-- 表单修饰符.number将字符串转化为数值；.trim去掉前后空格；.lazy将input事件转化为change事件，应用场景：检查用户名是否已注册-->
+            <div class="age">
+                <span>年龄：</span><input type="text" v-model.number='age'>
+                <span>格言：</span><input type="text" v-model.trim='motto'>
+                <span>失去焦点时更新{{msg}}</span><input type="text" v-model.lazy='msg'>
+            </div>
+            <!-- 单选按钮 -->
+            <div class="sex">
+                <span>性别</span>
+                <span>
+                    <input type="radio" id="boy" value="male" v-model='sex'><label for="boy" >男</label>
+                    <input type="radio" id="girl" value="female" v-model='sex'><label for="girl">女</label>
+                </span>
+            </div>
+            <!-- 多选按钮 -->
+            <div class="hobby">
+                <input type="checkbox" id="hobby1" value="1" v-model='hobby'><label for="hobby1">打球</label>
+                <input type="checkbox" id="hobby2" value="2" v-model='hobby'><label for="hobby2">看电影</label>
+                <input type="checkbox" id="hobby3" value="3" v-model='hobby'><label for="hobby3">玩游戏</label>
+            </div>
+            <!-- 下拉列表-单选 -->
+            <div id="job">
+                <select name="job" id="job" v-model="occupation">
+                    <option value="0">请选择</option>
+                    <option value="1">学生</option>
+                    <option value="2">医生</option>
+                    <option value="3">老师</option>
+                </select>
+            </div>
+            <!-- 下拉列表-多选 -->
+            <div id="city">
+                <select name="city" id="city" v-model="city" multiple='true'>
+                    <option value="0">请选择城市</option>
+                    <option value="1">北京</option>
+                    <option value="2">上海</option>
+                    <option value="3">广州</option>
+                </select>
+            </div>
+            <!-- 多行文本 -->
+            <div id="intraduce">
+                <textarea name="" id="" cols="30" rows="10" v-model='intraduce'></textarea>
+            </div>
+            <div><input type="submit" value='提交' @click.prevent='handle'></div>
+        </form>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+var app = new Vue({
+    el:'#app',
+    data:{
+      name:"",
+      age:'',
+      motto:'',
+      msg:'',
+      sex:"male",
+      hobby:['2'],
+      occupation:3,
+      city:['2','3'],
+      intraduce:''
+   
+    },
+    methods:{
+      handle:function(){
+          console.log(this.name,this.sex,this.hobby,this.occupation,this.city,this.intraduce,this.age+12,'格言长度为：'+this.motto.length)
+      }
+    }
+})
+</script>
+</html>

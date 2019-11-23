@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义指令</title>
+</head>
+<body>
+    <div id="app">
+      <input type="text" v-focus>
+      <input type="text" v-color='msg'>
+      <input type="text" v-fontcolor='msg' value='123'>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 不带参数的自定义指令
+    Vue.directive('focus',{
+      inserted:function(el){
+        el.focus()
+      }
+    })
+    // 带参数的自定义指令
+    Vue.directive('color',{
+      bind:function(el,binding){
+        // console.log(binding.value.color)
+        // 根据指令参数设置背景色
+        el.style.backgroundColor=binding.value.color;
+      }
+    })
+    var app = new Vue({
+    el:"#app",
+    data:{
+        msg:{
+            color:'orange',
+        }
+    },
+    // 局部指令
+    directives:{
+      fontcolor:function(el,binding){
+          
+        el.style.color=binding.value.color;
+      }
+    }
+    })
+</script>
+</html>

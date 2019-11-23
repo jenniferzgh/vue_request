@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+[v-cloak]{
+    display: none;
+}
+.active{
+    color: brown;
+}
+.objActive1{
+    color:crimson;
+}
+.active1{
+    color: chocolate;
+}
+.active2{
+    background: crimson;
+}
+.active3{
+    background: crimson;
+}
+.active4{
+    color:#fff;
+}
+.style5{
+    width: 100px;
+}
+
+</style>
+<body>
+    
+    <div id="app" >
+        <p>--------插值-----------</p>
+        <!-- 解决插值表达式的闪动问题v-cloak -->
+        <div v-cloak>{{msg}}</div>
+        <!-- v-text插值没有闪动问题 -->
+        <div v-text='msg1'></div>
+        <!-- v-html将标签过滤 -->
+        <div v-html='msg1'></div>
+        <!-- v-pre显示原始信息，跳过编译过程 -->
+        <div v-pre>{{msg}}</div>
+        <!-- 只编译一次 控制台中输入app.msg3='123',显示内容不会变-->
+        <div v-once>{{msg3}}</div>
+        <p>-----------双向数据绑定---------</p>
+        <!-- 双向数据绑定 -->
+        <input type="text" v-model='msg4'>
+        <div>{{msg4}}</div>
+        <!-- 事件绑定v-on -->
+        <p>--------事件绑定--------</p>
+        <button v-on:click='num1++'>{{num1}}</button>
+        <button @click='num2++'>{{num2}}</button>
+        <button @click='click3'>点击{{num3}}次</button>
+        <button @click='click4(123,$event)'>点击</button>
+        <!-- 事件修饰符 -->
+        <p>--------事件修饰符--------</p>
+        <!-- click.stop阻止冒泡 -->
+        <div v-on:click='cli1'>
+            {{cliMsg1}}
+            <button v-on:click.stop='cli2'>点击{{cliMsg2}}次</button>
+        </div>
+        <!-- click.阻止默认行为-->
+        <div>
+            <a href="http://www.baidu.com" v-on:click.prevent='cli3'>百度</a>
+        </div>
+        <!-- .self触发自身 -->
+        <div v-on:click.self='cli4'>
+                {{cliMsg4}}
+                <button v-on:click.stop='cli5'>点击{{cliMsg5}}次</button>
+        </div>
+        <p>--------按键事件修饰符--------</p>
+        <input type="text" v-on:keyup.enter='submit' v-model='uname'>
+        <input type="text" v-on:keyup.delete='del' v-model='pwd'>
+        <button v-on:click='submit'>提交</button>
+        <p>---------按键修饰符2--------</p>
+        <input type="text" v-on:keyup.32='Key32'>
+        <p>---------自定义按键修饰符-------</p>
+        <input type="text" v-on:keyup.kongge='KeyKongge'>
+        <!-- 计算器案例 -->
+        <p>-----------计算器案例---------</p>
+        a:<input type="text" v-model='a'>
+        b:<input type="text" v-model='b'>
+        <button @click='add'>提交</button>
+        <p>a+b的结果为{{c}}</p>
+        <p>------------属性绑定，样式绑定-----------</p>
+        <!-- 属性绑定v-bind -->
+        <a v-bind:href="url">百度</a>
+        <a :href="url">百度</a>
+        <br></br>
+        <!-- 样式绑定v-bind:class对象绑定 -->
+        <div v-bind:class="{ active: isActive}">123</div>
+        <div v-bind:class="ac">123</div>
+        <button v-on:click='changeStyle'>点击切换样式</button>
+        <br></br>
+        <!-- 样式绑定v-bind:class数组绑定 -->
+        <div v-bind:class="[style1,style2]">456</div>
+        <div v-bind:class="st">456</div>
+        <button v-on:click='changeStyle2'>点击切换样式</button>
+        <br></br>
+        <!-- 样式绑定v-bind:class数组绑定+对象绑定 -->
+        <div v-bind:class="[style3,style4,{style5:isStyle5}]">456</div>
+        <button v-on:click='changeStyle3'>点击切换样式</button>
+        <br></br>
+        
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+// 自定义按键修饰符
+Vue.config.keyCodes.kongge = 32;
+var app=new Vue({
+    el:'#app',
+data:{
+    msg:"123",
+    msg1:'<h1>123</h1>',
+    msg3:'nihao',
+    msg4:'原始值',
+    num1:0,
+    num2:0,
+    num3:0,
+    cliMsg1:0,
+    cliMsg2:0,
+    cliMsg4:0,
+    cliMsg5:0,
+    uname:'',
+    pwd:'',
+    a:'',
+    b:'',
+    c:'',
+    url:'http://www.baidu.com',
+    isActive: true,
+    style1:'active1',
+    style2:'active2',
+    style3:'active3',
+    style4:'active4',
+    isStyle5:true,
+    ac:{ objActive1: true},
+    st:[
+        'active1',
+        'active2'
+    ]
+
+},
+methods:{
+    click3:function(e){
+        this.num3++;
+        console.log(e.target.tagName);
+        console.log(e.target.innerHTML);
+    },
+    click4:function(data,e){
+        console.log(data);
+        console.log(e.target.tagName);
+        console.log(e.target.innerHTML);
+        
+    },
+    cli1:function(){
+        this.cliMsg1++
+    },
+    cli2:function(e){
+      this.cliMsg2++
+      //阻止冒泡
+      //e.stopPropagation();
+    },
+    cli3:function(e){
+    //阻止默认行为
+    //e.preventDefault()
+    },
+    cli4:function(){
+        console.log('点击了自身');
+        this.cliMsg4++
+    },
+    cli5:function(){
+        this.cliMsg5++
+    },
+    submit:function(){
+        console.log('提交数据:' +this.uname+this.pwd)
+    },
+    del:function(){
+        this.pwd='';
+    },
+    // 按空格键时
+    Key32:function(e){
+        console.log(e.keyCode)
+    },
+    KeyKongge:function(e){
+        console.log('按下空格，空格的keyCode为'+e.keyCode)
+    },
+    add:function(){
+        this.c=parseInt(this.a)+parseInt(this.b)
+    },
+    changeStyle:function(){
+        this.isActive=!this.isActive;
+    },
+    changeStyle2:function(){
+        this.style1='';
+    },
+    changeStyle3:function(){
+        this.isStyle5=!this.isStyle5;
+    }
+
+
+}
+})
+</script>
+</body>
+</html>

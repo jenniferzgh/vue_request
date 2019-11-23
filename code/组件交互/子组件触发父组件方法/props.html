@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>子组件使用父组件的数据</title>
+</head>
+<body>
+    <div id="app">
+     <!-- 2.父子件中使用子组件并传递数据 -->
+     <menu-item :title='msg' :lists='lists' :num='num' :arr='arr'></menu-item>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+Vue.component('menu-item',{
+  data:function(){
+      return {
+          msg:'子组件本来的数据'
+      }
+  },
+  // 4.在模板中使用数据
+  template:`
+  <div>
+    <div>{{msg}}</div>
+    <div>{{title}}</div>
+    <ul>
+      <li :key='index' v-for='(i,index) of lists'>{{i}}</li>
+    </ul>
+    <div>{{num+12}}</div>
+    <div>{{arr}}</div>
+  </div>
+  `,
+  // 3.子组件props接收数据
+  props:[
+      'title',
+      'lists',
+      'isTrue',
+      'num',
+      'arr'
+  ]
+})
+// 1.父组件定义数据
+var app = new Vue({
+    el:'#app',
+    data:{
+    msg:'父组件数据',
+    lists:['apple','banana','orange'],
+    isTrue:true,
+    num:12,
+    arr:{
+        name:'jennifer',
+    }
+    }
+   
+});
+</script>
+</html>
